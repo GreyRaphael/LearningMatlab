@@ -10,6 +10,7 @@
     - [tensor product](#tensor-product)
   - [conv](#conv)
   - [Matrix function](#matrix-function)
+  - [Function Matrix](#function-matrix)
   - [other operations](#other-operations)
   - [Matrix Modification](#matrix-modification)
 
@@ -582,6 +583,29 @@ x = 2×2 complex
 ans = 2×2 complex    
    1.0000 + 0.0000i   2.0000 - 0.0000i
    3.0000 - 0.0000i   4.0000 + 0.0000i
+```
+
+## Function Matrix
+
+```matlab
+%其中的syms表示要用到符号运算
+syms x;
+A=[sin(x),exp(x),1;cos(x),x^2+1,log(x)]
+diff(A)
+diff(A,2)
+
+%output============================
+A =
+[ sin(x),  exp(x),      1]
+[ cos(x), x^2 + 1, log(x)]
+
+ans =
+[  cos(x), exp(x),   0]
+[ -sin(x),    2*x, 1/x]
+
+ans =
+[ -sin(x), exp(x),      0]
+[ -cos(x),      2, -1/x^2]
 ```
 
 ## other operations
