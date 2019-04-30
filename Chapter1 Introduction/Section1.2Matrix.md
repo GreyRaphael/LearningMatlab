@@ -8,6 +8,7 @@
     - [inner product](#inner-product)
     - [outer product](#outer-product)
     - [tensor product](#tensor-product)
+  - [conv](#conv)
 
 ## Generate Matrix
 
@@ -438,7 +439,7 @@ x2=[2, 3, 4]
 cross(x1, x2)
 % x3·(x1 × x2)
 x3=[1, 1, 1]
-dot(x2, cross(x1, x2))
+dot(x3, cross(x1, x2))
 
 A1=reshape(1:6, 3, 2)'
 A2=reshape(2:7, 3, 2)'
@@ -508,3 +509,35 @@ ans = 4×4
      0     0     1    -1
      0     0    -1     1
 ```
+
+## conv
+
+```matlab
+% 多项式展开(s^2+2s+2)(s+4)(s+1)
+w=conv([1,2,2],conv([1,4], [1,1])) % 1 7 16 18 8
+p=poly2str(w, 's') % s^4+7s^3+16s^2+18s+8
+
+% 求多项式(x^3+2x^2+3x+4)(10x^2+20x+30)的卷积，并用卷积除以多项式(x^3+2x^2+3x+4)
+% [q,r]=deconv(u,v) % q:商多项式;r:余多项式
+u=[1,2,3,4]
+v=[10,20,30]
+c=conv(u, v)
+[q,r]=deconv(c,u)
+
+% output
+u = 1×4    
+     1     2     3     4
+
+v = 1×3    
+    10    20    30
+
+c = 1×6    
+    10    40   100   160   170   120
+
+q = 1×3    
+    10    20    30
+
+r = 1×6    
+     0     0     0     0     0     0
+```
+
