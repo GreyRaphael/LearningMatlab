@@ -13,6 +13,7 @@
   - [Function Matrix](#function-matrix)
   - [other operations](#other-operations)
   - [Matrix Modification](#matrix-modification)
+  - [Eigenvalues λ](#eigenvalues-%CE%BB)
 
 ## Generate Matrix
 
@@ -808,4 +809,36 @@ E = 3×2
      1     4
      2     5
      3     6
+```
+
+## Eigenvalues λ
+
+> Ax=λx中，λ为特征值；x为特征向量
+
+```matlab
+A=[1,0,1i;0,2,0;-1i,0,1]
+B=eig(A)
+%V为特征向量，D为特征值
+[V,D]=eig(A)
+
+% output
+A = 3×3 complex    
+   1.0000 + 0.0000i   0.0000 + 0.0000i   0.0000 + 1.0000i
+   0.0000 + 0.0000i   2.0000 + 0.0000i   0.0000 + 0.0000i
+   0.0000 - 1.0000i   0.0000 + 0.0000i   1.0000 + 0.0000i
+
+B = 3×1    
+     0
+     2
+     2
+
+V = 3×3 complex    
+   0.0000 + 0.7071i   0.0000 + 0.7071i   0.0000 + 0.0000i
+   0.0000 + 0.0000i   0.0000 + 0.0000i   0.0000 + 1.0000i
+  -0.7071 + 0.0000i   0.7071 + 0.0000i   0.0000 + 0.0000i
+
+D = 3×3    
+     0     0     0
+     0     2     0
+     0     0     2
 ```
