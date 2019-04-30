@@ -16,6 +16,7 @@
   - [Eigenvalues λ](#eigenvalues-%CE%BB)
   - [Jordan normal form](#jordan-normal-form)
   - [System of linear equations](#system-of-linear-equations)
+  - [norm](#norm)
 
 ## Generate Matrix
 
@@ -1026,3 +1027,42 @@ x=\left( \begin{array}{c}
 	1\\
 \end{array} \right) 
 $$
+
+## norm
+
+范数：表示距离。包括1范数，2范数，无穷范数，f范数，都是使用norm函数
+> ![](res/norm01.png)
+
+```matlab
+%norm for vector
+A=1:4;
+B1=norm(A,1)
+B2=norm(A,2)
+B3=norm(A,inf)
+B4=norm(A,-inf)
+B5=norm(A,'fro')
+B6=norm(A,3)
+%nor for matrix
+C=[1:3;2:4;3:5]
+D1=norm(C,1)
+D2=norm(C,2)
+D3=norm(C,inf)
+D5=norm(C,'fro')
+
+% output
+B1 = 10
+B2 = 5.4772
+B3 = 4
+B4 = 1
+B5 = 5.4772
+B6 = 4.6416
+C = 
+     1     2     3
+     2     3     4
+     3     4     5
+
+D1 = 12
+D2 = 9.6235
+D3 = 12
+D5 = 9.6437
+```
