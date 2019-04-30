@@ -14,6 +14,7 @@
   - [other operations](#other-operations)
   - [Matrix Modification](#matrix-modification)
   - [Eigenvalues λ](#eigenvalues-%CE%BB)
+  - [Jordan normal form](#jordan-normal-form)
 
 ## Generate Matrix
 
@@ -841,4 +842,38 @@ D = 3×3
      0     0     0
      0     2     0
      0     0     2
+```
+
+
+## Jordan normal form
+
+```matlab
+A=[-1,-2,6;-1,0,3;-1,-1,4]
+[V,J]=jordan(A) %V为相似变换矩阵
+M=V\A*V
+isequal(J, M)
+
+% output
+A = 3×3    
+    -1    -2     6
+    -1     0     3
+    -1    -1     4
+
+V = 3×3    
+    -2     1     3
+    -1     0     0
+    -1     0     1
+
+J = 3×3    
+     1     1     0
+     0     1     0
+     0     0     1
+
+M = 3×3    
+     1     1     0
+     0     1     0
+     0     0     1
+
+ans = 
+   1
 ```
