@@ -15,6 +15,7 @@
   - [Matrix Modification](#matrix-modification)
   - [Eigenvalues λ](#eigenvalues-%CE%BB)
   - [Jordan normal form](#jordan-normal-form)
+  - [System of linear equations](#system-of-linear-equations)
 
 ## Generate Matrix
 
@@ -877,3 +878,151 @@ M = 3×3
 ans = 
    1
 ```
+
+## System of linear equations
+
+$$
+Ax=b;\\
+A=\begin{bmatrix}
+1&2&3\\
+1&4&9\\
+1&8&27
+\end{bmatrix},
+b=\begin{bmatrix}
+5\\-2\\6
+\end{bmatrix}
+$$
+
+> rank(A)=n, x=A\b  
+> rank(A)<n, 无穷多解(齐次通解+特解)
+
+```matlab
+% rank(A)=n, b不等于0
+A=[1,2,3;1,4,9;1,8,27]
+b=[5;-2;6]
+
+x=inv(A)*b %inv()is slower than \
+y=A\b
+
+%output
+A = 
+     1     2     3
+     1     4     9
+     1     8    27
+
+b = 
+     5
+    -2
+     6
+
+x = 
+   23.0000
+  -14.5000
+    3.6667
+
+y = 
+   23.0000
+  -14.5000
+    3.6667
+```
+
+```matlab
+% rank(A)=n, b等于0
+A=[1,2,3;1,4,9;1,8,27]
+b=[0;0;0]
+x=A\b
+
+% output
+x = 3×1    
+     0
+     0
+     0
+```
+
+```matlab
+% rank(A)<n, b不等于0
+format rat
+A=[1,1,-1,-1;2,-5,3,2;7,-7,3,1]
+b=[5;-4;7];
+rank(A)
+
+y0=A\b %特解
+y=null(A,'r') %两个向量
+% 最终通解: y0+k1*y(:,1)+k2*y(:,2)
+
+A = 3×4    
+       1              1             -1             -1       
+       2             -5              3              2       
+       7             -7              3              1       
+
+ans = 
+       2       
+
+y = 4×2    
+       2/7            3/7     
+       5/7            4/7     
+       1              0       
+       0              1       
+
+y0 = 4×1    
+       3       
+       2       
+       0       
+       0       
+```
+
+最终通解:
+
+$$
+x=\left( \begin{array}{c}
+	3\\
+	2\\
+	0\\
+	0\\
+\end{array} \right) +k_1\left( \begin{array}{c}
+	2/7\\
+	5/7\\
+	1\\
+	0\\
+\end{array} \right) +k_2\left( \begin{array}{c}
+	3/7\\
+	4/7\\
+	0\\
+	1\\
+\end{array} \right) 
+$$
+
+```matlab
+format rat
+A=[1,1,-1,-1;2,-5,3,2;7,-7,3,1];
+b=[5;-4;7];
+% 初等行变换将增广矩阵 [A,b] 化成最简行阶梯形
+T=rref([A,b])
+
+% output
+T = 3×5    
+       1              0             -2/7           -3/7            3       
+       0              1             -5/7           -4/7            2       
+       0              0              0              0              0       
+```
+
+最终通解:
+
+$$
+x=\left( \begin{array}{c}
+	3\\
+	2\\
+	0\\
+	0\\
+\end{array} \right) +k_1\left( \begin{array}{c}
+	2/7\\
+	5/7\\
+	1\\
+	0\\
+\end{array} \right) +k_2\left( \begin{array}{c}
+	3/7\\
+	4/7\\
+	0\\
+	1\\
+\end{array} \right) 
+$$
