@@ -4,6 +4,10 @@
   - [Generate Matrix](#generate-matrix)
   - [Matrix Reference](#matrix-reference)
   - [Special matrix](#special-matrix)
+  - [Matrix Product](#matrix-product)
+    - [inner product](#inner-product)
+    - [outer product](#outer-product)
+    - [tensor product](#tensor-product)
 
 ## Generate Matrix
 
@@ -322,4 +326,185 @@ T1 = 3×3
        1              2              3       
        2              1              2       
        3              2              1       
+```
+
+## Matrix Product
+
+### inner product
+
+$$
+\vec{x}=\left(\begin{matrix}x_1\\\ldots\\x_n\\\end{matrix}\right),\vec{y}=\left(\begin{matrix}y_1\\\ldots\\y_n\\\end{matrix}\right)\\
+\left< \vec{x},\vec{y} \right>=\vec{x}^H\vec{y}=\sum_{i=1}^n{x_{i}^{*}y_i}\\
+\left< \vec{y},\vec{x} \right> =\vec{y}^H\vec{x}=\sum_{i=1}^n{y_{i}^{*}x_i}=\left< \vec{x},\vec{y} \right>^*\\
+$$
+
+```matlab
+x=[1+1i; 2+1i]
+x.'
+x'
+
+y=[1+3i; 3+1i]
+% <x,y>
+dot(x, y)
+x'*y
+sum(conj(x).*y)
+
+% <y,x>
+dot(y, x)
+x.'*conj(y)
+
+% output
+x = 2×1 complex    
+   1.0000 + 1.0000i
+   2.0000 + 1.0000i
+
+ans = 1×2 complex    
+   1.0000 + 1.0000i   2.0000 + 1.0000i
+
+ans = 1×2 complex    
+   1.0000 - 1.0000i   2.0000 - 1.0000i
+
+y = 2×1 complex    
+   1.0000 + 3.0000i
+   3.0000 + 1.0000i
+
+ans = 11.0000 + 1.0000i
+ans = 11.0000 + 1.0000i
+ans = 11.0000 + 1.0000i
+ans = 11.0000 - 1.0000i
+ans = 11.0000 - 1.0000i
+```
+
+```matlab
+x1=1:3
+x2=2:4
+dot(x1, x2, 1) % 按列加和
+dot(x1, x2, 2) % 按行加和
+dot(x1, x2, 3) % 不加和
+dot(x1, x2) % 按行加和
+
+A1=reshape(1:6, 2, 3)
+A2=reshape(2:7, 2, 3)
+dot(A1, A2, 1)
+dot(A1, A2, 2)
+dot(A1, A2, 3)
+dot(A1, A2)
+
+% output
+x1 = 1×3    
+     1     2     3
+
+x2 = 1×3    
+     2     3     4
+
+ans = 1×3    
+     2     6    12
+
+ans = 20
+ans = 1×3    
+     2     6    12
+
+ans = 20
+A1 = 2×3    
+     1     3     5
+     2     4     6
+
+A2 = 2×3    
+     2     4     6
+     3     5     7
+
+ans = 1×3    
+     8    32    72
+
+ans = 2×1    
+    44
+    68
+
+ans = 2×3    
+     2    12    30
+     6    20    42
+
+ans = 1×3    
+     8    32    72
+```
+
+### outer product
+
+```matlab
+% 向量a，b的叉积。要求a，b为3*n或n*3的矩阵
+% x1 × x2
+x1=[1, 2, 3]
+x2=[2, 3, 4]
+cross(x1, x2)
+% x3·(x1 × x2)
+x3=[1, 1, 1]
+dot(x2, cross(x1, x2))
+
+A1=reshape(1:6, 3, 2)'
+A2=reshape(2:7, 3, 2)'
+cross(A1, A2)
+% not exist cross(A1, A2, 1), cross(A1, A2, 3)
+cross(A1, A2, 2)
+
+% output
+x1 = 1×3    
+     1     2     3
+
+x2 = 1×3    
+     2     3     4
+
+ans = 1×3    
+    -1     2    -1
+
+x3 = 1×3    
+     1     1     1
+
+ans = 0
+A1 = 2×3    
+     1     2     3
+     4     5     6
+
+A2 = 2×3    
+     2     3     4
+     5     6     7
+
+ans = 2×3    
+    -1     2    -1
+    -1     2    -1
+
+ans = 2×3    
+    -1     2    -1
+    -1     2    -1
+```
+
+### tensor product
+
+$$
+C=A\otimes B=\left( \begin{matrix}
+	a_{11}B&		...&		a_{1n}B\\
+	...&		...&		...\\
+	a_{m1}B&		...&		a_{mn}B\\
+\end{matrix} \right) 
+$$
+
+```matlab
+% 张量积
+A=eye(2)
+B=[1,-1;-1,1]
+kron(A, B)
+
+% output
+A = 2×2    
+     1     0
+     0     1
+
+B = 2×2    
+     1    -1
+    -1     1
+
+ans = 4×4    
+     1    -1     0     0
+    -1     1     0     0
+     0     0     1    -1
+     0     0    -1     1
 ```
