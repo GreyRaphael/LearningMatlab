@@ -11,6 +11,7 @@
   - [conv](#conv)
   - [Matrix function](#matrix-function)
   - [other operations](#other-operations)
+  - [Matrix Modification](#matrix-modification)
 
 ## Generate Matrix
 
@@ -615,4 +616,137 @@ ans = 3×3
 
 ans = 6
 ans = 3
+```
+
+## Matrix Modification
+
+```matlab
+% expand
+A=1:4
+B=eye(2)
+C=zeros(2)
+D=[A;B C]
+
+% delete column
+D(:,2)=[]
+
+% modify row
+D(2,:)=[11,22,33]
+D(2,2)=222
+
+% output
+A = 1×4    
+     1     2     3     4
+
+B = 2×2    
+     1     0
+     0     1
+
+C = 2×2    
+     0     0
+     0     0
+
+D = 3×4    
+     1     2     3     4
+     1     0     0     0
+     0     1     0     0
+
+D = 3×3    
+     1     3     4
+     1     0     0
+     0     0     0
+
+D = 3×3    
+     1     3     4
+    11    22    33
+     0     0     0
+
+D = 3×3    
+     1     3     4
+    11   222    33
+     0     0     0
+```
+
+```matlab
+A=reshape(1:6, 2, 3)
+flipud(A)
+flip(A, 1)
+fliplr(A)
+flip(A, 2)
+rot90(A)
+
+% output
+A = 2×3    
+     1     3     5
+     2     4     6
+
+ans = 2×3    
+     2     4     6
+     1     3     5
+
+ans = 2×3    
+     2     4     6
+     1     3     5
+
+ans = 2×3    
+     5     3     1
+     6     4     2
+
+ans = 2×3    
+     5     3     1
+     6     4     2
+
+ans = 3×2    
+     5     6
+     3     4
+     1     2
+```
+
+```matlab
+A=eye(2)
+repmat(A, 2, 3)
+
+B=reshape(1:6, 2, 3)
+C=B(:)
+D=ones(3, 2)
+D(:)=B(:)
+E=reshape(B, 3, 2)
+
+% output
+A = 2×2    
+     1     0
+     0     1
+
+ans = 4×6    
+     1     0     1     0     1     0
+     0     1     0     1     0     1
+     1     0     1     0     1     0
+     0     1     0     1     0     1
+
+B = 2×3    
+     1     3     5
+     2     4     6
+
+C = 6×1    
+     1
+     2
+     3
+     4
+     5
+     6
+
+D = 3×2    
+     1     1
+     1     1
+     1     1
+
+D = 3×2    
+     1     4
+     2     5
+     3     6
+
+E = 3×2    
+     1     4
+     2     5
+     3     6
 ```
