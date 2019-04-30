@@ -9,6 +9,8 @@
     - [outer product](#outer-product)
     - [tensor product](#tensor-product)
   - [conv](#conv)
+  - [Matrix function](#matrix-function)
+  - [other operations](#other-operations)
 
 ## Generate Matrix
 
@@ -541,3 +543,76 @@ r = 1×6
      0     0     0     0     0     0
 ```
 
+## Matrix function
+
+```matlab
+A=eye(3)
+B=expm(A)
+logm(B)
+
+y=[1,2;3,4]
+x=sqrtm(y)
+x*x
+
+% output
+A = 3×3    
+     1     0     0
+     0     1     0
+     0     0     1
+
+B = 3×3    
+    2.7183         0         0
+         0    2.7183         0
+         0         0    2.7183
+
+ans = 3×3    
+     1     0     0
+     0     1     0
+     0     0     1
+
+y = 2×2    
+     1     2
+     3     4
+
+x = 2×2 complex    
+   0.5537 + 0.4644i   0.8070 - 0.2124i
+   1.2104 - 0.3186i   1.7641 + 0.1458i
+
+ans = 2×2 complex    
+   1.0000 + 0.0000i   2.0000 - 0.0000i
+   3.0000 - 0.0000i   4.0000 + 0.0000i
+```
+
+## other operations
+
+```matlab
+A=2*eye(3)
+B=[1,2;2,4]
+% det=0, cannot inverse
+det(A)
+det(B)
+
+inv(A)
+trace(A)
+rank(A)
+
+% output
+A = 3×3    
+     2     0     0
+     0     2     0
+     0     0     2
+
+B = 2×2    
+     1     2
+     2     4
+
+ans = 8
+ans = 0
+ans = 3×3    
+    0.5000         0         0
+         0    0.5000         0
+         0         0    0.5000
+
+ans = 6
+ans = 3
+```
