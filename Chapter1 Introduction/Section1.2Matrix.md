@@ -2,6 +2,7 @@
 
 - [Matrix](#matrix)
   - [Generate Matrix](#generate-matrix)
+  - [Matrix Reference](#matrix-reference)
 
 ## Generate Matrix
 
@@ -36,3 +37,62 @@ x3 = 1×4
    10.0000    6.7980    4.6213    3.1416
 ```
 
+## Matrix Reference
+
+```matlab
+% 1d
+x=1:5
+x(2)
+x(2:4)
+% 2d
+A=reshape(1:20, 4, 5)
+A(2:3,3:4)
+A(2:3,:)
+A(2,:)
+A(2,3)
+% 引用n维矩阵中的一个元素，需要n个角标
+
+% output
+x = 1×5    
+     1     2     3     4     5
+
+ans = 2
+ans = 1×3    
+     2     3     4
+
+A = 4×5    
+     1     5     9    13    17
+     2     6    10    14    18
+     3     7    11    15    19
+     4     8    12    16    20
+
+ans = 2×2    
+    10    14
+    11    15
+
+ans = 2×5    
+     2     6    10    14    18
+     3     7    11    15    19
+
+ans = 1×5    
+     2     6    10    14    18
+
+ans = 4×1    
+     9
+    10
+    11
+    12
+
+ans = 10
+```
+
+```matlab
+% generate 3d matrix
+for i=1:2
+    for j=1:3
+        for k=1:4
+            c(i, j, k)=i*j*k
+        end
+    end
+end
+```
