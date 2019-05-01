@@ -52,3 +52,18 @@ New M-file:
 
 MATLAB good examples:
 - [find peaks](https://terpconnect.umd.edu/~toh/spectrum/SignalProcessingTools.html)
+
+数据输出格式控制: format函数使用: `help format`
+
+语法：`format +格式符`
+
+只影响数据输出格式，不影响计算和存储
+
+默认输出格式为`short`格式
+
+```matlab
+format short
+a=0.5 % 0.500
+format rat
+a % 1/2
+```
