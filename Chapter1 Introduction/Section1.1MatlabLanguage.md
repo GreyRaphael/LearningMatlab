@@ -11,6 +11,7 @@
       - [`switch` statement: no need 'break'](#switch-statement-no-need-break)
       - [`try` Statement](#try-statement)
       - [loop Statement](#loop-statement)
+      - [recursive](#recursive)
 
 ## Grammar Introduction
 
@@ -456,5 +457,66 @@ while 1
     if isempty(ch)
         break;
     end
+end
+```
+
+#### recursive
+
+example: 直接递归, 求阶乘
+
+```matlab
+% my_factorial.m
+function res=my_factorial(n)
+    if n <=1
+        res=1;
+    else
+        res=my_factorial(n-1)*n;
+    end
+end
+
+% in command window:
+% my_factorial(5)
+% ans =
+%       120
+```
+
+example: 间接递归
+
+$$
+f\left( n \right) =\left\{ \begin{array}{l}
+	\sin \left[ \pi \frac{f\left( n-2 \right)}{f\left( n-2 \right)} \right] ,\ n\ is\ even\\
+	\cos \left[ \pi \frac{f\left( n-2 \right)}{f\left( n-1 \right)} \right] ,\ n\ is\ odd\\
+\end{array} \right. 
+$$
+
+```matlab
+% func1.m
+function res=func1(n)
+    if n<=0 || mod(n,2)~=0
+        error('只处理大于0的偶数');
+    elseif n<=2
+        res=1;
+    else
+        a=func1(n-2);
+        b=func2(n-1);
+        res=sin(pi*(a/b));
+    end
+    disp([n,res]);
+end
+```
+
+```matlab
+% func2.m
+function res=func2(n)
+    if n<=0 || mod(n,2)==0
+        error('只处理大于0的奇数');
+    elseif n<=1
+        res=1;
+    else
+        a=func2(n-2);
+        b=func1(n-1);
+        res=cos(pi*(a/b));
+    end
+    disp([n,res]);
 end
 ```
