@@ -3,6 +3,7 @@
 - [Matlab Language](#matlab-language)
   - [Grammar Introduction](#grammar-introduction)
     - [Data Type](#data-type)
+    - [Variables](#variables)
 
 ## Grammar Introduction
 
@@ -195,4 +196,71 @@ g = '123456789'
   num       1x1                 4  int32
   str       1x11               22  char
   t         1x1                 8  double
+```
+
+### Variables
+
+> matlab关于变量的语法：变量使用前不需要定义，但变量使用前必须赋值，程序执行过程中，变量的值、类型都可以改变。  
+> C, java等语言关于变量的语法：变量使用前必须先定义，变量使用前应该先赋值，程序执行过程中，变量的值可以改变，但类型不能改变。
+
+- 字母开头; 包括字母、数字、下划线; 区分大小写; 长度限制为63
+- 不声明，不定义，拿来即用; 动态类型
+
+```matlab
+% 动态类型
+a=12.5 % double
+a='hello' % char
+```
+
+Matlab查看变量:
+- workspace窗口显示
+- 命令方式: `who`, `whos` in command window
+- "MATLAT Live Editor"
+
+```matlab
+%type in "MATLAT Live Editor"
+a=1;b=2;c=3;d=4;
+who
+% Your variables are:
+%   a b c d
+whos
+%  Name      Size            Bytes  Class     Attributes
+%
+%  a         1x1                 8  double
+%  b         1x1                 8  double
+%  c         1x1                 8  double
+%  d         1x1                 8  double
+clear a; % 清除变量
+```
+
+Other commands:
+- 查看帮助 `help clear`, `help cos`, ...
+- 清除所有变量： `clear;`
+- 清除command window: `clc;`
+- 保存、导入variables(默认为二进制文件):`save`, `load`
+
+```matlab
+a=1;b=2;c=3;d=4;
+save('myVariables','a','b')
+
+%变量被存放工作目录下的myVariables.mat中，然后添加e
+e=5;
+save('myVariables.mat','e','-append');
+
+%load a
+clear;
+load('myVariables.mat','a');
+whos
+
+% output
+  Name      Size            Bytes  Class     Attributes
+
+  a         1x1                 8  double
+```
+
+```matlab
+% matlab的常量能够被覆盖
+pi % 3.1415926
+pi=8
+pi % 8
 ```
