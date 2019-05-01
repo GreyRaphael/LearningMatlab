@@ -4,7 +4,8 @@
   - [Grammar Introduction](#grammar-introduction)
     - [Data Type](#data-type)
     - [Variables](#variables)
-  - [Operator](#operator)
+    - [Operator](#operator)
+    - [Expression & Sentence](#expression--sentence)
 
 ## Grammar Introduction
 
@@ -266,7 +267,7 @@ pi=8
 pi % 8
 ```
 
-## Operator
+### Operator
 
 [MATLAB Operators](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html)
 
@@ -307,3 +308,15 @@ D=x*A % [11, 16; 19, 28]
 D*inv(A)
 D/A % [2, 3, 4, 5]
 ```
+
+### Expression & Sentence
+
+- 回车则表示一句结束
+  - 末尾无分号，则输出该句执行该结果
+  - 末尾有分号，只执行，不输出
+- 注释以`%`开头表示
+- 一行写不开，用`…`续行，否则默认这一句已经完毕
+
+赋值：
+- 变量=表达式:将表达式的值赋值给=前的变量
+- 表达式:将表达式的值赋值给默认变量ans
