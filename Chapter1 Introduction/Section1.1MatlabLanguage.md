@@ -4,6 +4,7 @@
   - [Grammar Introduction](#grammar-introduction)
     - [Data Type](#data-type)
     - [Variables](#variables)
+  - [Operator](#operator)
 
 ## Grammar Introduction
 
@@ -263,4 +264,46 @@ whos
 pi % 3.1415926
 pi=8
 pi % 8
+```
+
+## Operator
+
+[MATLAB Operators](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html)
+
+```matlab
+% import example
+A=[1 2;3 4];
+B=[1 3;2 4];
+C=A>B % [0, 0; 1, 0]
+
+a = [1 2 0 3 4 2 0];
+b = [0 2 3 5 4 0 0];
+c = a & b % [0, 1, 0, 1, 1, 0, 0]
+```
+
+```matlab
+% 数值的左除、右除
+a1=10/2 % 5
+a2=10\2 % 0.2000
+a3=10./2 % 5
+a4=10.\2 % 0.2000
+
+% 矩阵的左点除、右点除
+b1=[2, 4, 6; 6, 9, 12];
+b2=[2, 2, 2; 3, 3, 3];
+b1./b2 % [1, 2, 3; 2, 3, 4]
+b1.\b2 % [1.0000, 0.5000, 0.3333; 0.5000, 0.3333, 0.2500]
+
+% 矩阵的左除、右除
+% Ax=B, 并且A可逆, x=inv(A)*B
+% xA=D, 并且A可逆, x=D*inv(A)
+A=[1, 2; 3, 4];
+x=[2, 3; 4, 5];
+B=A*x % [10, 13; 22, 29]
+inv(A)*B
+A\B % [2, 3; 4, 5]
+
+D=x*A % [11, 16; 19, 28]
+D*inv(A)
+D/A % [2, 3, 4, 5]
 ```
