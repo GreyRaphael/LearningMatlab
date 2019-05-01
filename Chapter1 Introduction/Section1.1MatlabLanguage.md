@@ -6,6 +6,11 @@
     - [Variables](#variables)
     - [Operator](#operator)
     - [Expression & Sentence](#expression--sentence)
+    - [Language Control](#language-control)
+      - [`if` statement](#if-statement)
+      - [`switch` statement: no need 'break'](#switch-statement-no-need-break)
+      - [`try` Statement](#try-statement)
+      - [loop Statement](#loop-statement)
 
 ## Grammar Introduction
 
@@ -320,3 +325,136 @@ D/A % [2, 3, 4, 5]
 赋值：
 - 变量=表达式:将表达式的值赋值给=前的变量
 - 表达式:将表达式的值赋值给默认变量ans
+
+### Language Control
+
+顺序，循环，选择
+
+M-file:
+- Script File: no input, no return,可以对workspace的variables进行操作，结果返回workspace，可以直接运行
+- Function File: 变量为局部变量，函数执行完毕，变量被清除，要通过调用的形式运行（特殊函数除外，比如GUI的function）
+
+```matlab
+% input
+% in command window
+>> a=input('please input a number:')
+please input a number:666
+
+% output
+a =
+   666
+```
+
+```matlab
+% disp: 显示比较紧凑
+% in command window
+>> A=input('please enter a number: ')
+disp('I am Genius')
+disp(A)
+please enter a number: 10
+
+% output
+A =
+    10
+
+I am Genius
+    10
+
+% pause经常用于动画
+>> pause(3);A
+A =
+    10
+
+>> pause(3);disp(A)
+    10
+```
+
+#### `if` statement
+
+```matlab
+A=input('please enter a number: ')
+if(A<5)
+    %disp即便是有;也会输出
+    disp(A);
+elseif(A<10)
+    disp('A is bigger than 5 and smaller than 10');
+else
+    disp('A is bigger than 10');
+end
+
+% output
+A = 456789
+A is bigger than 10
+```
+
+```matlab
+x=0:0.01:10;
+%过滤掉3<x<6部分
+y=sin(x(x<3 | x>6));
+plot(y)
+```
+
+> ![](res/filter01.png)
+
+#### `switch` statement: no need 'break'
+
+```matlab
+price=input('enter the price: ')
+switch fix(price/100)
+    case {0,1}
+        rate=0;
+    case 2
+        rate=0.1;
+    case 3
+        rate=0.15
+    case {4,5,6}
+        rate=0.5;
+    otherwise
+        rate=0.6;
+end
+disp(['the rate is ',num2str(rate)]);
+
+%output============
+price = 564
+the rate is 0.5
+```
+
+#### `try` Statement
+
+Try statement: 如果有错误，不执行这个语句，执行catch语句或者直接结束try语句体
+
+#### loop Statement
+
+循环可以嵌套，**但是在MATLAB中，循环的执行效率很低（因为是解释型语言）**
+
+因此应该尽量避免使用循环，更要避免使用两重以上的循环
+> 根据自己的使用经验，三重循环执行起来就已经非常慢了
+
+怎样避免使用循环和提高循环效率？
+- 有些可以通过MATLAB的矢量化语言，通过矩阵或者向量操作完成；
+- 有些可以通过MATLAB提供的一些特殊操作工具箱函数完成；
+- Matlab预分配内存，会大大增加循环效率；
+
+```matlab
+% for loop
+A=1:1000;
+sum=0;
+%不要使用i,j;因为和复数冲突，使用k,m
+for k=1:2:100
+    sum=sum+A(k);
+end
+sum
+%output================
+sum = 2500
+```
+
+```matlab
+% while loop
+while 1
+    %'s'表示字符
+    ch=input('enter a character:','s');
+    if isempty(ch)
+        break;
+    end
+end
+```
