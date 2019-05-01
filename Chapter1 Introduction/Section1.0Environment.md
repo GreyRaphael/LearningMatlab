@@ -17,7 +17,7 @@ MATLAB查找过程:
 
 MATLAB path:
 ```matlab
-% in command window, MATLAB live Editor非常强大，减少代码的结果窗口的来回切换
+% in command window
 path
 % C:\Users\Administrator\Documents\MATLAB
 % C:\Users\Administrator\AppData\Local\Temp\Editor
@@ -34,6 +34,21 @@ savepath % 通常配合userpath使用
 pathtool
 help path
 ```
+
+where to run code:
+- live editor(recommended):MATLAB live Editor非常强大，减少代码的结果窗口的来回切换
+- command window
+- M-file
+
+New M-file:
+- new a untitled m-file:
+  `>>edit` or `Ctrl + N`
+- new a named file in command window:
+  `edit myTest`  
+  在Editor中编辑myTest.m,然后在command window  
+  `myTest`  
+  就可以运行上面的myTest.m
+
 
 MATLAB good examples:
 - [find peaks](https://terpconnect.umd.edu/~toh/spectrum/SignalProcessingTools.html)
