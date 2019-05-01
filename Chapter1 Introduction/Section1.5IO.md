@@ -2,6 +2,7 @@
 
 - [Matlab IO](#matlab-io)
   - [read ascii](#read-ascii)
+  - [read excel](#read-excel)
 
 ## read ascii
 
@@ -142,3 +143,40 @@ A=textscan(fid,'%d %d %d %d %d', 'Headerlines', 2)
 fclose(fid);
 ```
 
+## read excel
+
+```bash
+# book.xlsx
+1 2
+3 4
+5 6
+7 8
+9 10
+```
+
+```matlab
+data=xlsread('book.xlsx', 'Sheet1')
+
+% output
+data = 5×2    
+     1     2
+     3     4
+     5     6
+     7     8
+     9    10
+```
+
+example: guide read excel
+> <img src="res/read01.png" width="400">
+
+```matlab
+% mygui.m
+
+% --- Executes on button press in pushbutton1.
+function pushbutton1_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbutton1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+data = xlsread('book.xlsx', 'Sheet1');
+plot(handles.axes1, data);
+```
