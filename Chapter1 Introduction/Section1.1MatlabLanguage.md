@@ -2,16 +2,18 @@
 
 - [Matlab Language](#matlab-language)
   - [Grammar Introduction](#grammar-introduction)
-    - [Data Type](#data-type)
-    - [Variables](#variables)
-    - [Operator](#operator)
-    - [Expression & Sentence](#expression--sentence)
-    - [Language Control](#language-control)
-      - [`if` statement](#if-statement)
-      - [`switch` statement: no need 'break'](#switch-statement-no-need-break)
-      - [`try` Statement](#try-statement)
-      - [loop Statement](#loop-statement)
-      - [recursive](#recursive)
+  - [Data Type](#data-type)
+  - [Variables](#variables)
+  - [Operator](#operator)
+  - [Expression & Sentence](#expression--sentence)
+  - [Language Control](#language-control)
+    - [`if` statement](#if-statement)
+    - [`switch` statement: no need 'break'](#switch-statement-no-need-break)
+    - [`try` Statement](#try-statement)
+    - [loop Statement](#loop-statement)
+    - [recursive](#recursive)
+  - [function](#function)
+    - [function in & out](#function-in--out)
 
 ## Grammar Introduction
 
@@ -26,7 +28,7 @@
 - 流程控制
 - script file & function file
 
-### Data Type
+## Data Type
 
 [MATLAB DataType](https://www.mathworks.com/help/matlab/data-types.html):
 - Numeric: integer; single, double; 
@@ -206,7 +208,7 @@ g = '123456789'
   t         1x1                 8  double
 ```
 
-### Variables
+## Variables
 
 > matlab关于变量的语法：变量使用前不需要定义，但变量使用前必须赋值，程序执行过程中，变量的值、类型都可以改变。  
 > C, java等语言关于变量的语法：变量使用前必须先定义，变量使用前应该先赋值，程序执行过程中，变量的值可以改变，但类型不能改变。
@@ -273,7 +275,7 @@ pi=8
 pi % 8
 ```
 
-### Operator
+## Operator
 
 [MATLAB Operators](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html)
 
@@ -315,7 +317,7 @@ D*inv(A)
 D/A % [2, 3, 4, 5]
 ```
 
-### Expression & Sentence
+## Expression & Sentence
 
 - 回车则表示一句结束
   - 末尾无分号，则输出该句执行该结果
@@ -327,7 +329,7 @@ D/A % [2, 3, 4, 5]
 - 变量=表达式:将表达式的值赋值给=前的变量
 - 表达式:将表达式的值赋值给默认变量ans
 
-### Language Control
+## Language Control
 
 顺序，循环，选择
 
@@ -370,7 +372,7 @@ A =
     10
 ```
 
-#### `if` statement
+### `if` statement
 
 ```matlab
 A=input('please enter a number: ')
@@ -397,7 +399,7 @@ plot(y)
 
 > ![](res/filter01.png)
 
-#### `switch` statement: no need 'break'
+### `switch` statement: no need 'break'
 
 ```matlab
 price=input('enter the price: ')
@@ -415,16 +417,16 @@ switch fix(price/100)
 end
 disp(['the rate is ',num2str(rate)]);
 
-%output============
+% output
 price = 564
 the rate is 0.5
 ```
 
-#### `try` Statement
+### `try` Statement
 
 Try statement: 如果有错误，不执行这个语句，执行catch语句或者直接结束try语句体
 
-#### loop Statement
+### loop Statement
 
 循环可以嵌套，**但是在MATLAB中，循环的执行效率很低（因为是解释型语言）**
 
@@ -445,7 +447,7 @@ for k=1:2:100
     sum=sum+A(k);
 end
 sum
-%output================
+% output
 sum = 2500
 ```
 
@@ -460,7 +462,7 @@ while 1
 end
 ```
 
-#### recursive
+### recursive
 
 example: 直接递归, 求阶乘
 
@@ -520,3 +522,173 @@ function res=func2(n)
     disp([n,res]);
 end
 ```
+
+## function
+
+Syntax:
+- `function [output args] = function_name([input args])`
+- `%`注释说明，用于help,lookfor的查询结果，标准格式参照MATLAB自带的函数
+- 函数体
+
+> 除非是在其他函数里面定义的，否则function前面只能有注释内容，其他不能有；  
+> 通常函数名与文件名相同，两者不同时以文件名为准
+
+function in live editor:
+```matlab
+x = 1:10;
+n = length(x);
+avg = mymean(x,n)
+
+function a = mymean(v,n)
+    % MYMEAN Example of a local function.
+    a = sum(v)/n;
+end
+
+% output
+avg = 5.5000
+```
+
+function in m-file:
+```matlab
+function mysum=myAdd(num1, num2)
+    % add two number
+    mysum=num1+num2
+end
+```
+
+```matlab
+% in command window
+>> help mysum
+    add two number
+>> mysum(12, 56)
+ans = 
+        68
+```
+
+### function in & out
+- nargin: number of function input arguments;
+- nargout
+- varargin
+- varargout: variable length input argument list
+- 可以完成传递参数的可调功能，类似高级语言的函数重载和多态
+
+example: nargin example in Live Editor
+
+```matlab
+myMultiAdd(1,2,3, 4)
+myMultiAdd(999)
+
+%=================================
+function sum=myMultiAdd(num1,num2,num3,num4)
+    %this is a multiadd function
+    if nargin==4
+        sum=num1+num2+num3+num4;
+    elseif nargin==3
+        sum=num1+num2+num3;
+    elseif nargin==2
+        sum=num1+num2;
+    else
+        error('the nargin between 2 and 4')
+    end
+end
+
+% output
+ans = 10
+
+Error using Untitled2>myMultiAdd (line 13)
+the nargin between 2 and 4
+```
+
+example: nargout example in live Editor
+
+```matlab
+x1=my_mu(1,2,3,4)
+[x2,y2]=my_mu(1,2,3,4)
+
+%===========================
+function [a,b]=my_mu(num1,num2,num3,num4)
+    if nargout==2
+        a=num1+num2+num3+num4;
+        b=num1*num2*num3*num4;
+    else
+        a=num1+num2+num3+num4;
+    end
+end
+
+% output
+x1 = 10
+x2 = 10
+y2 = 24
+```
+
+example: varargin example in Live Editor
+
+```matlab
+x1=add_var(1,2)
+x2=add_var(1,2,3)
+x3=add_var(1,2,3,4)
+x4=add_var(1,2,3,4,5)
+
+%===========================
+function re=add_var(a,b,varargin)
+    %检测输入参数个数，不在该范围，给出错误信息
+    narginchk(2,4);
+
+    if nargin==2
+        re=a+b;
+    elseif nargin==3
+        %varargin中的数据为cell类型
+        c=varargin{1};
+        re=a+b+c;
+    elseif nargin==4
+        c=varargin{1};
+        d=varargin{2};
+        re=a+b+c+d;
+    else
+        error('wrong');
+    end
+end
+
+% output
+x1 = 3
+x2 = 6
+x3 = 10
+
+Error using Untitled2>add_var (line 8)
+Too many input arguments.
+```
+
+example: varargout
+> 参考函数`pburg`的写法: `edit pburg`
+
+```matlab
+x1=myFun_varout(1,2)
+[x2,y2]=myFun_varout(1,2)
+[x3,y3]=myFun_varout(1,2,4)
+myFun_varout(1,2,4)
+
+%==========================
+function varargout=myFun_varout(a,b,varargin)
+    narginchk(2,4);
+
+    if nargin==2
+        varargout{1}=a+b;
+        varargout{2}=a*b;
+    elseif nargin==3
+        c=varargin{1};
+        varargout{1}=a+b+c;
+        varargout{2}=a*b*c;
+    else
+        error('wrong');
+    end
+end
+
+% output
+x1 = 3
+x2 = 3
+y2 = 2
+x3 = 7
+y3 = 8
+ans = 7
+```
+
