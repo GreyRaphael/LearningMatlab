@@ -275,6 +275,12 @@ pi=8
 pi % 8
 ```
 
+Global variables:
+- 可以提供不同的m-file访问同一个global variable;
+- 不同的函数之间访问同一个variable, 可以通过返回参数来实现，也可以通过global variable来实现
+- GUI中，可以通过**GUI data, app data, global variables**来实现
+- 每一个函数或者每一个m-file中都要声明: `global a`
+
 ## Operator
 
 [MATLAB Operators](https://www.mathworks.com/help/matlab/matlab_prog/matlab-operators-and-special-characters.html)
