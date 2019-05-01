@@ -2,7 +2,7 @@
 
 - [Matrix](#matrix)
   - [Generate Matrix](#generate-matrix)
-  - [Matrix Reference](#matrix-reference)
+  - [Matrix Indexing](#matrix-indexing)
   - [Special matrix](#special-matrix)
   - [Matrix Product](#matrix-product)
     - [inner product](#inner-product)
@@ -22,11 +22,20 @@
 
 ```matlab
 % method1:by typing
-A0=[1, 3, 5, 7]
+A0=[1, 3, 5, 7] % or A0=[1 3 5 7]
+B0=[1
+    3
+    5
+    7] % or B0=[1;3;5;7]
+
 % method2: init:step:end, [init, ..., end]
+% step默认为1
 A1=1:2:7
 A2=1:7
+A3=[1:4;2:5]
+
 % method3: linspace, logspace
+% linspace(初始值:终止值,count); count默认100
 x1=linspace(1, 7, 4)
 x2=logspace(2, 4, 3)
 x3=logspace(1,pi,4) % very special
@@ -35,11 +44,21 @@ x3=logspace(1,pi,4) % very special
 A0 = 1×4    
      1     3     5     7
 
+B0 = 4×1    
+     1
+     3
+     5
+     7
+
 A1 = 1×4    
      1     3     5     7
 
 A2 = 1×7    
      1     2     3     4     5     6     7
+
+A3 = 2×4    
+     1     2     3     4
+     2     3     4     5
 
 x1 = 1×4    
      1     3     5     7
@@ -51,7 +70,7 @@ x3 = 1×4
    10.0000    6.7980    4.6213    3.1416
 ```
 
-## Matrix Reference
+## Matrix Indexing
 
 ```matlab
 % 1d
@@ -65,6 +84,7 @@ A(2:3,:)
 A(2,:)
 A(2,3)
 % 引用n维矩阵中的一个元素，需要n个角标
+A(6) % 6
 
 % output
 x = 1×5    
@@ -98,6 +118,78 @@ ans = 4×1
     12
 
 ans = 10
+```
+
+```matlab
+A=[1:5;11:15;111:115]
+B=A(2,2:end-1)
+C=A(1:3,1:3)
+D=A([1 3], [1 3])
+
+% output
+A = 3×5    
+     1     2     3     4     5
+    11    12    13    14    15
+   111   112   113   114   115
+
+B = 1×3    
+    12    13    14
+
+C = 3×3    
+     1     2     3
+    11    12    13
+   111   112   113
+
+D = 2×2    
+     1     3
+   111   113
+```
+
+```matlab
+% index with subscript
+A=[1:4;2:5;3:6]
+
+[m,n]=find(A==3)
+mn=find(A==3)
+
+sub2ind(size(A), m, n)
+[u,v]=ind2sub(size(A), mn)
+
+% output
+A = 3×4    
+     1     2     3     4
+     2     3     4     5
+     3     4     5     6
+
+m = 3×1    
+     3
+     2
+     1
+
+n = 3×1    
+     1
+     2
+     3
+
+mn = 3×1    
+     3
+     5
+     7
+
+ans = 3×1    
+     3
+     5
+     7
+
+u = 3×1    
+     3
+     2
+     1
+
+v = 3×1    
+     1
+     2
+     3
 ```
 
 ```matlab
@@ -697,6 +789,12 @@ D(:,2)=[]
 D(2,:)=[11,22,33]
 D(2,2)=222
 
+% modify element
+D(3)=666
+
+% delete element
+D(4)=[]
+
 % output
 A = 1×4    
      1     2     3     4
@@ -728,6 +826,31 @@ D = 3×3
      1     3     4
     11   222    33
      0     0     0
+
+D = 3×3    
+     1     3     4
+    11   222    33
+   666     0     0
+
+D = 1×8    
+     1    11   666   222     0     4    33     0
+```
+
+```matlab
+A=[1:4;2:5]
+B=unique(A)
+
+% output
+A = 2×4    
+     1     2     3     4
+     2     3     4     5
+
+B = 5×1    
+     1
+     2
+     3
+     4
+     5
 ```
 
 ```matlab
@@ -770,7 +893,7 @@ A=eye(2)
 repmat(A, 2, 3)
 
 B=reshape(1:6, 2, 3)
-C=B(:)
+C=B(:) % reshape(B, 9, 1)
 D=ones(3, 2)
 D(:)=B(:)
 E=reshape(B, 3, 2)
