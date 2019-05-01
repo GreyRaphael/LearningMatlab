@@ -14,6 +14,7 @@
     - [recursive](#recursive)
   - [function](#function)
     - [function in & out](#function-in--out)
+  - [Debug](#debug)
 
 ## Grammar Introduction
 
@@ -698,3 +699,23 @@ y3 = 8
 ans = 7
 ```
 
+## Debug
+
+Step:
+- 断点和单步
+- 根据错误提示来看
+- 调试过程中可以获得参数和变量的数值
+
+> Live Editor 不能debug,只能在m-file中
+
+```matlab
+% in command window
+>> myFun_varout(1, 2, 4)
+8___elseif nargin==3
+K>> nargin
+ans =
+        3
+K>> a
+a =
+    1
+```
