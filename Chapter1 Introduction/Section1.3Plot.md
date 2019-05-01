@@ -2,6 +2,9 @@
 
 - [Matlab Plot](#matlab-plot)
   - [simple plot](#simple-plot)
+  - [plot decoration](#plot-decoration)
+  - [axis](#axis)
+  - [subplot](#subplot)
 
 ## simple plot
 
@@ -68,3 +71,92 @@ axis equal;
 ```
 
 > <img src="res/plot05.png" width="400">
+
+```matlab
+% hold on
+
+clf; % clear figure
+
+x=linspace(0,2*pi);
+y1=sin(x);
+y2=sin(x)./x;
+hold on;
+plot(x,y1);
+plot(x,y2);
+```
+
+> <img src="res/plot06.png" width="400">
+
+## plot decoration
+
+```matlab
+x1=linspace(0,2*pi,200);
+x2=linspace(0,2*pi,100);
+x3=linspace(0,2*pi,50);
+y1=sin(x1);
+y2=cos(x2);
+y3=sin(x3)./x3;
+%r,g,b,y,m,k
+%*.p<>- -- -. :
+plot(x1,y1,'r*',x2,y2,'pb',x3,y3,'>g');
+text(3,0.5,'sin(x)')
+xlabel('x');
+ylabel('y');
+title('sin,cos,etc');
+
+%legend
+legend('sin(x)','sin(x)/x');
+
+%LaTex
+text(4,0.8,'x_2')
+text(2,0.3,'$$\frac{sin(x)}{x}$$','Interpreter','latex');
+```
+
+> ![](res/plot07.png)
+
+## axis
+
+```matlab
+x1=linspace(0,2*pi,200);
+x2=linspace(0,2*pi,100);
+x3=linspace(0,2*pi,50);
+y1=sin(x1);
+y2=cos(x2);
+y3=sin(x3)./x3;
+plot(x1,y1,'r*',x2,y2,'pb',x3,y3,'>g');
+text(3,0.5,'sin(x)')
+xlabel('x');
+ylabel('y');
+
+%legend
+legend('sin(x)','sin(x)/x');
+
+% xlim([0 8]);
+% ylim([-1.5 1.5]);
+% %or use the following method
+axis([0,8,-1.5,1.5]);
+
+% axis off;
+% axis on;
+% %axis auto会使得axis([0,8,-1.5,1.5]);失效
+% axis auto;
+% %axis square;会使得坐标轴变成正方形
+% axis square;
+axis equal;
+```
+
+> ![](res/plot08.png)
+
+## subplot
+
+```matlab
+clf;clear;
+
+x=linspace(0,2*pi);
+y1=sin(x);
+y2=sin(x)./x;
+subplot(221),plot(x,y1);
+subplot(224),plot(x,y2);
+```
+
+> ![](res/plot09.png)
