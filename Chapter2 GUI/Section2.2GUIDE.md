@@ -2,7 +2,9 @@
 
 - [Matlab GUIDE](#matlab-guide)
   - [Introduction](#introduction)
-  - [Data Transfer](#data-transfer)
+  - [Data Share](#data-share)
+    - [same window](#same-window)
+    - [different window](#different-window)
 
 ## Introduction
 
@@ -96,5 +98,49 @@ Other gui related:
 - gui with mouse
 - gui wth timer
 
-## Data Transfer
+## Data Share
 
+### same window
+
+同一个窗口，不同control之间数据共享
+1. Global variables
+    - 不同函数之间传递
+2. UserData属性，有数量限制
+    - 每一个控件有一个UserData属性，用于少数变量共享
+3. AppData
+    - Application defined Data
+4. GUI Data
+    - 可以实现控件的句柄以及不同的控件访问同一个变量的一致性访问，即都通过handles结构体来访问数据，handles.tag就是tag对应控件的句柄
+
+example: global variable share, `global`
+> ![](res/share_global01.png)  
+> ![](res/share_global02.png)  
+
+example: userdata share, `get` & `set`
+> ![](res/share_userdata01.png)  
+> ![](res/share_userdata02.png)  
+
+example: appdata share, `getappdata` & `setappdata`
+> appdata与某一个对象(句柄)相关联，setapp和getapp都有一个输入参数是句柄  
+> ![](res/share_appdata01.png)
+
+example: guidata share, `handles`, 修改之后需要更新
+> ![](res/share_guidata01.png)
+
+### different window
+
+不同窗口数据共享:
+1. 通过guihandles获得某一个窗口的handles结构体实现数据访问
+2. 有输出参数的多窗口编程
+
+example: 通过guihandles
+> ![](res/multiwin_share_handles01.png)
+> ![](res/multiwin_share_handles02.png)  
+> ![](res/multiwin_share_handles03.png)  
+> ![](res/multiwin_share_handles04.png)  
+
+example: 通过输出, `uiwait` & `uiresume`
+> GUI执行顺序：主函数→OpenningFcn→OutputFcn→用户的函数(各种控件)，所以OutputFcn发生在用户函数之前；  
+> 所以要有窗口的输出，修改执行过程为：主函数→OpenningFcn→等待用户输入→各种控件操作→OutputFcn；
+> ![](res/multiwin_share_handles05.png)  
+> ![](res/multiwin_share_handles06.png)  
